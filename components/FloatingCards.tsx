@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   TrendingUp,
   Rocket,
@@ -10,20 +10,10 @@ import {
   Sparkles,
   CalendarCheck,
 } from "lucide-react";
-import { useRef } from "react";
-
-type CardProps = {
-  y: MotionValue<number>;
-  x?: MotionValue<number>;
-  rotate?: MotionValue<number>;
-};
 
 function PillCard({
   icon,
   label,
-  y,
-  x,
-  rotate,
   className,
   delay = 0,
 }: {
@@ -31,10 +21,9 @@ function PillCard({
   label: string;
   className: string;
   delay?: number;
-} & CardProps) {
+}) {
   return (
     <motion.div
-      style={{ y, x, rotate }}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -50,31 +39,9 @@ function PillCard({
 }
 
 export default function FloatingCards() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const ySlow = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const yMed = useTransform(scrollYProgress, [0, 1], [0, 140]);
-  const yFast = useTransform(scrollYProgress, [0, 1], [0, 220]);
-  const yReverse = useTransform(scrollYProgress, [0, 1], [0, -120]);
-
-  const xLeft = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const xRight = useTransform(scrollYProgress, [0, 1], [0, 40]);
-
-  const rotateA = useTransform(scrollYProgress, [0, 1], [-6, -10]);
-  const rotateB = useTransform(scrollYProgress, [0, 1], [5, 10]);
-  const rotateC = useTransform(scrollYProgress, [0, 1], [-3, -6]);
-  const rotateD = useTransform(scrollYProgress, [0, 1], [4, 8]);
-
   return (
-    <div ref={ref} className="pointer-events-none absolute inset-0 z-10">
+    <div className="pointer-events-none absolute inset-0 z-10">
       <PillCard
-        y={ySlow}
-        x={xLeft}
-        rotate={rotateA}
         delay={0.1}
         className="left-[5%] top-[26%] hidden md:block animate-float-slow"
         icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-500" />}
@@ -82,9 +49,6 @@ export default function FloatingCards() {
       />
 
       <PillCard
-        y={yMed}
-        x={xRight}
-        rotate={rotateB}
         delay={0.15}
         className="right-[5%] top-[24%] hidden md:block animate-float-medium"
         icon={<Rocket className="h-3.5 w-3.5 text-amber-500" />}
@@ -92,7 +56,6 @@ export default function FloatingCards() {
       />
 
       <motion.div
-        style={{ y: yFast, x: xLeft, rotate: rotateC }}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.04, y: -4 }}
@@ -127,7 +90,6 @@ export default function FloatingCards() {
       </motion.div>
 
       <motion.div
-        style={{ y: yReverse, x: xRight, rotate: rotateD }}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.04, y: -4 }}
@@ -166,9 +128,6 @@ export default function FloatingCards() {
       </motion.div>
 
       <PillCard
-        y={yMed}
-        x={xLeft}
-        rotate={rotateB}
         delay={0.35}
         className="left-[14%] bottom-[14%] hidden md:block animate-float-fast"
         icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-500" />}
@@ -176,9 +135,6 @@ export default function FloatingCards() {
       />
 
       <PillCard
-        y={ySlow}
-        x={xRight}
-        rotate={rotateA}
         delay={0.4}
         className="right-[14%] bottom-[12%] hidden md:block animate-float-medium"
         icon={<Users className="h-3.5 w-3.5 text-sky-500" />}

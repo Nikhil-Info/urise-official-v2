@@ -15,7 +15,6 @@ export default function Home() {
       <div className="relative z-10">
         <RecentLaunches />
         <FeatureSection />
-        <Categories />
         <CtaSection />
         <Footer />
       </div>

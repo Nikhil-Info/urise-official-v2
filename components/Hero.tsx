@@ -5,6 +5,7 @@ import { ArrowRight, Rocket } from "lucide-react";
 import { useRef } from "react";
 import CircuitBackground from "./CircuitBackground";
 import FloatingCards from "./FloatingCards";
+import TrustedByCurve from "./TrustedByCurve";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -89,6 +90,8 @@ export default function Hero() {
             </a>
           </motion.div>
         </div>
+
+        <TrustedByCurve />
       </motion.div>
     </section>
   );

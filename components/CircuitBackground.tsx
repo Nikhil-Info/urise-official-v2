@@ -225,6 +225,9 @@ export default function CircuitBackground() {
       </motion.div>
 
       <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.55),transparent_70%)] blur-2xl" />
+
+      {/* Bottom fade — wipes circuit lines under the trusted-by band */}
+      <div className="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(to_top,#e8f3fb_0%,rgba(232,243,251,0.92)_55%,rgba(232,243,251,0)_100%)]" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Box } from "lucide-react";
+import Image from "next/image";
 
 const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
@@ -31,11 +31,15 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.5fr_2fr]">
           <div>
             <a href="#" className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-md bg-gradient-to-br from-sky-300 to-sky-500 text-white shadow-sm">
-                <Box className="h-4 w-4" strokeWidth={2.5} />
-              </span>
+              <Image
+                src="/logo.png"
+                alt="URise logo"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+              />
               <span className="text-lg font-semibold tracking-tight text-[#0b1220]">
-                Selly
+                URise
               </span>
             </a>
             <p className="mt-4 max-w-sm text-sm text-[#4b5563]">
@@ -79,7 +83,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[#dde7f0] pt-6 text-xs text-[#6b7280] sm:flex-row sm:items-center">
-          <span>© {new Date().getFullYear()} Selly. Built for makers.</span>
+          <span>© {new Date().getFullYear()} URise. Built for makers.</span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
             All systems operational

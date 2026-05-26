@@ -1,20 +1,71 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { useRef, useState } from "react";
+import {
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { ArrowRight, Rocket } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import CircuitBackground from "./CircuitBackground";
 import FloatingCards from "./FloatingCards";
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const [email, setEmail] = useState("");
+  const [hovered, setHovered] = useState(false);
 
-  // Track window scroll for sticky-hero recede effect
+  // Mouse position for the cursor-reactive glow
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 22, stiffness: 120, mass: 0.6 };
+  const sx = useSpring(mouseX, springConfig);
+  const sy = useSpring(mouseY, springConfig);
+
+  // Soft ambient halo (large, low intensity)
+  const ambient = useTransform(
+    [sx, sy],
+    ([x, y]) =>
+      `radial-gradient(560px circle at ${x}px ${y}px, rgba(125, 180, 230, 0.35), rgba(125, 180, 230, 0.05) 40%, transparent 65%)`
+  );
+  // Bright core (small, high intensity) — brightens circuit beneath it
+  const core = useTransform(
+    [sx, sy],
+    ([x, y]) =>
+      `radial-gradient(180px circle at ${x}px ${y}px, rgba(255, 255, 255, 0.55), rgba(180, 220, 245, 0.25) 35%, transparent 70%)`
+  );
+
+  // Sticky hero recede on scroll
   const { scrollY } = useScroll();
   const contentY = useTransform(scrollY, [0, 600], [0, -60]);
   const contentScale = useTransform(scrollY, [0, 600], [1, 0.94]);
   const contentOpacity = useTransform(scrollY, [0, 500, 800], [1, 0.7, 0.2]);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = node.getBoundingClientRect();
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
+    };
+    const onEnter = (e: MouseEvent) => {
+      const rect = node.getBoundingClientRect();
+      mouseX.jump(e.clientX - rect.left);
+      mouseY.jump(e.clientY - rect.top);
+      setHovered(true);
+    };
+    const onLeave = () => setHovered(false);
+    node.addEventListener("mousemove", onMove);
+    node.addEventListener("mouseenter", onEnter);
+    node.addEventListener("mouseleave", onLeave);
+    return () => {
+      node.removeEventListener("mousemove", onMove);
+      node.removeEventListener("mouseenter", onEnter);
+      node.removeEventListener("mouseleave", onLeave);
+    };
+  }, [mouseX, mouseY]);
 
   return (
     <section
@@ -22,6 +73,21 @@ export default function Hero() {
       className="circuit-bg sticky top-0 z-0 isolate overflow-hidden h-screen flex items-center justify-center"
     >
       <CircuitBackground />
+
+      {/* Cursor-reactive ambient halo — brightens the bg around the cursor */}
+      <motion.div
+        aria-hidden
+        style={{ background: ambient, opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+        className="pointer-events-none absolute inset-0 z-[5] transition-opacity duration-500 mix-blend-screen"
+      />
+      {/* Bright core spotlight — makes circuit lines pop near cursor */}
+      <motion.div
+        aria-hidden
+        style={{ background: core, opacity: hovered ? 1 : 0 }}
+        className="pointer-events-none absolute inset-0 z-[6] mix-blend-screen"
+      />
+
       <FloatingCards />
 
       <motion.div
@@ -64,37 +130,28 @@ export default function Hero() {
           with a community of early adopters.
         </motion.p>
 
-        {/* Email form */}
-        <motion.form
-          id="waitlist"
+        {/* Two CTA buttons */}
+        <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (email) {
-              alert(`Thanks! ${email} is on the waitlist.`);
-              setEmail("");
-            }
-          }}
-          className="mt-9 flex w-full max-w-md items-center gap-2 rounded-2xl bg-white/95 p-1.5 shadow-[0_10px_30px_-12px_rgba(15,30,60,0.18)] ring-1 ring-black/[0.04] backdrop-blur"
+          className="mt-10 flex flex-col items-center gap-3 sm:flex-row"
         >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="flex-1 bg-transparent px-3.5 py-2.5 text-sm text-[#0b1220] placeholder:text-[#9ca3af] focus:outline-none"
-            required
-          />
-          <button
-            type="submit"
-            className="group flex items-center gap-1.5 rounded-xl bg-[#0a1027] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#13193a]"
+          <a
+            href="#launches"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-[#0a1027] px-6 py-3.5 text-sm font-medium text-white shadow-[0_10px_30px_-10px_rgba(15,30,60,0.5)] transition hover:bg-[#13193a]"
           >
-            Join waitlist
-            <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-          </button>
-        </motion.form>
+            <Rocket className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            Launch Now
+          </a>
+          <a
+            href="#launches"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-white/95 px-6 py-3.5 text-sm font-medium text-[#0a1027] ring-1 ring-black/[0.06] shadow-sm backdrop-blur transition hover:bg-white"
+          >
+            Explore products
+            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );

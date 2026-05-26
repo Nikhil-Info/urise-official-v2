@@ -3,23 +3,41 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Calendar,
+  CalendarCheck,
   ChevronUp,
+  Coffee,
+  FileText,
   Filter,
+  Gamepad2,
+  type LucideIcon,
   MessageCircle,
   Search,
+  ShoppingBag,
+  Sparkles,
   TrendingUp,
 } from "lucide-react";
 import { useRef } from "react";
 
-const products = [
+type Product = {
+  name: string;
+  tagline: string;
+  category: string;
+  votes: number;
+  comments: number;
+  icon: LucideIcon;
+  accent: string;
+  badge?: string;
+};
+
+const products: Product[] = [
   {
     name: "FlowZen",
     tagline: "Smart calendar for focused work.",
     category: "Productivity",
     votes: 432,
     comments: 28,
-    gradient: "from-indigo-400 to-purple-500",
-    initials: "FZ",
+    icon: CalendarCheck,
+    accent: "bg-emerald-400",
   },
   {
     name: "Taskly",
@@ -27,8 +45,8 @@ const products = [
     category: "AI",
     votes: 612,
     comments: 41,
-    gradient: "from-rose-400 to-pink-500",
-    initials: "TS",
+    icon: Sparkles,
+    accent: "bg-violet-400",
     badge: "Featured",
   },
   {
@@ -37,8 +55,8 @@ const products = [
     category: "E-commerce",
     votes: 521,
     comments: 19,
-    gradient: "from-amber-400 to-orange-500",
-    initials: "SP",
+    icon: ShoppingBag,
+    accent: "bg-amber-400",
   },
   {
     name: "Playflow",
@@ -46,8 +64,8 @@ const products = [
     category: "DevTools",
     votes: 487,
     comments: 33,
-    gradient: "from-emerald-400 to-teal-500",
-    initials: "PF",
+    icon: Gamepad2,
+    accent: "bg-teal-400",
   },
   {
     name: "Lumen AI",
@@ -55,8 +73,8 @@ const products = [
     category: "AI",
     votes: 398,
     comments: 22,
-    gradient: "from-sky-400 to-blue-500",
-    initials: "LA",
+    icon: FileText,
+    accent: "bg-sky-400",
   },
   {
     name: "Brewly",
@@ -64,8 +82,8 @@ const products = [
     category: "SaaS",
     votes: 354,
     comments: 17,
-    gradient: "from-fuchsia-400 to-purple-500",
-    initials: "BR",
+    icon: Coffee,
+    accent: "bg-rose-400",
     badge: "New",
   },
 ];
@@ -100,9 +118,7 @@ export default function RecentLaunches() {
               className="mb-6 flex items-center justify-between"
             >
               <div className="flex items-center gap-2">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 text-white shadow-[0_8px_20px_-6px_rgba(15,30,60,0.3)]">
-                  <TrendingUp className="h-4 w-4" />
-                </span>
+                
                 <h2 className="text-2xl font-semibold tracking-tight text-[#0a1027] sm:text-3xl">
                   Recent Launches
                 </h2>
@@ -162,9 +178,10 @@ function ProductCard({
   product,
   index,
 }: {
-  product: (typeof products)[number];
+  product: Product;
   index: number;
 }) {
+  const Icon = product.icon;
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -173,10 +190,27 @@ function ProductCard({
       transition={{ duration: 0.5, delay: index * 0.06 }}
       className="group relative flex items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-[0_10px_30px_-20px_rgba(15,30,60,0.2)] transition hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(15,30,60,0.25)]"
     >
-      <div
-        className={`grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${product.gradient} text-base font-bold text-white shadow-[0_8px_20px_-8px_rgba(15,30,60,0.3)]`}
-      >
-        {product.initials}
+      <div className="relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-linear-to-br from-[#0a1027] to-[#1e2645] text-white shadow-[0_8px_20px_-8px_rgba(15,30,60,0.35)] ring-1 ring-white/10">
+        {/* soft inner glow */}
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-[radial-gradient(circle_at_30%_22%,rgba(125,180,230,0.35),transparent_60%)]"
+        />
+        {/* subtle grid texture — keeps the avatars feeling on-brand */}
+        <span
+          aria-hidden
+          className="absolute inset-0 opacity-25"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+            backgroundSize: "8px 8px",
+          }}
+        />
+        <Icon className="relative h-6 w-6" strokeWidth={1.75} />
+        {/* category accent dot */}
+        <span
+          className={`absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full ${product.accent} ring-2 ring-[#0a1027]`}
+        />
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">

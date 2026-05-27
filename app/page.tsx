@@ -11,7 +11,6 @@ export default function Home() {
       <Navbar />
       <Hero />
       <RecentLaunches />
-      <FeatureSection />
       <CtaSection />
       <Footer />
     </main>

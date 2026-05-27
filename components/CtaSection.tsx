@@ -14,7 +14,7 @@ export default function CtaSection() {
   const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
 
   return (
-    <section ref={ref} className="relative isolate overflow-hidden bg-[#f5fbf8] py-28">
+    <section ref={ref} className="relative isolate overflow-hidden py-28">
       <motion.div
         style={{ scale: cardScale }}
         className="relative mx-auto max-w-5xl px-6"

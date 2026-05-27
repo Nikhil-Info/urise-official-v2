@@ -113,17 +113,22 @@ export default function RecentLaunches() {
     <section
       id="launches"
       ref={ref}
-      className="relative isolate overflow-hidden bg-[#f5fbf8] py-20 sm:py-24"
+      className="relative isolate overflow-hidden py-20 sm:py-24"
       style={{ perspective: 1400 }}
     >
-      {/* Soft drifting blobs */}
+      {/* Top fade — wipes any blob/color from the seam with the hero */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[linear-gradient(to_bottom,var(--background)_0%,rgba(245,251,248,0.8)_55%,rgba(245,251,248,0)_100%)] z-[1]" />
+      {/* Bottom fade — same idea for the next section seam */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(to_top,var(--background)_0%,rgba(245,251,248,0.8)_55%,rgba(245,251,248,0)_100%)] z-[1]" />
+
+      {/* Soft drifting blobs — kept well clear of section edges */}
       <motion.div
         style={{ y: blobY }}
-        className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-emerald-200/40 blur-3xl"
+        className="pointer-events-none absolute top-1/3 -left-32 h-80 w-80 rounded-full bg-emerald-200/30 blur-3xl"
       />
       <motion.div
         style={{ y: blob2Y }}
-        className="pointer-events-none absolute bottom-0 -right-24 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"
+        className="pointer-events-none absolute top-1/2 -right-32 h-96 w-96 rounded-full bg-teal-200/30 blur-3xl"
       />
 
       <div

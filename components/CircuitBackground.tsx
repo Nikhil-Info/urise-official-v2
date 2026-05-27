@@ -256,8 +256,8 @@ export default function CircuitBackground() {
       {/* Top fade — wipes circuit lines behind the navbar */}
       <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,#f0fbf5_0%,rgba(240,251,245,0.9)_55%,rgba(240,251,245,0)_100%)]" />
 
-      {/* Bottom fade — wipes circuit lines under the trusted-by band */}
-      <div className="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(to_top,#f0fbf5_0%,rgba(240,251,245,0.92)_55%,rgba(240,251,245,0)_100%)]" />
+      {/* Bottom fade — fades hero into the global section bg seamlessly */}
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-[linear-gradient(to_top,#f5fbf8_0%,rgba(245,251,248,0.95)_45%,rgba(245,251,248,0)_100%)]" />
     </div>
   );
 }

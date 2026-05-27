@@ -35,7 +35,7 @@ function PillCard({
       className={`absolute z-20 pointer-events-auto ${className}`}
     >
       <div className={floatClass}>
-        <div className="glass-card flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-[#0b1220] ring-1 ring-black/[0.04]">
+        <div className="glass-card flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-[#062018] ring-1 ring-black/[0.04]">
           {icon}
           <span>{label}</span>
         </div>
@@ -52,7 +52,7 @@ export default function FloatingCards() {
         rotate={-9}
         floatClass="animate-float-slow"
         className="left-[6%] top-[28%] hidden md:block"
-        icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-500" />}
+        icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-600" />}
         label="Community Upvote"
       />
 
@@ -61,7 +61,7 @@ export default function FloatingCards() {
         rotate={8}
         floatClass="animate-float-medium"
         className="right-[6%] top-[26%] hidden md:block"
-        icon={<Rocket className="h-3.5 w-3.5 text-amber-500" />}
+        icon={<Rocket className="h-3.5 w-3.5 text-emerald-600" />}
         label="Product Launch"
       />
 
@@ -73,27 +73,27 @@ export default function FloatingCards() {
         className="absolute left-[4%] top-[55%] z-20 hidden lg:block pointer-events-auto"
       >
         <div className="animate-float-medium">
-          <div className="glass-card flex items-center gap-3 rounded-2xl px-3.5 py-3 ring-1 ring-black/[0.04] w-[210px]">
+          <div className="glass-card flex items-center gap-3 rounded-2xl px-3.5 py-3 ring-1 ring-emerald-900/[0.05] w-[210px]">
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-indigo-400 to-purple-500 text-white">
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600 text-white">
                 <CalendarCheck className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <div className="flex items-center gap-1 text-[10px] font-medium text-amber-600">
+                <div className="flex items-center gap-1 text-[10px] font-medium text-emerald-700">
                   <Sparkles className="h-2.5 w-2.5" />
                   Today&apos;s Pick
                 </div>
-                <div className="text-sm font-semibold leading-tight text-[#0b1220]">
+                <div className="text-sm font-semibold leading-tight text-[#062018]">
                   FlowZen
                 </div>
-                <div className="text-[10px] text-[#6b7280] truncate">
+                <div className="text-[10px] text-[#4b6b5c] truncate">
                   Smart calendar
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-center rounded-lg bg-[#f3f6fb] px-2 py-1">
-              <ChevronUp className="h-3 w-3 text-[#0b1220]" />
-              <span className="text-[11px] font-semibold text-[#0b1220]">
+            <div className="flex flex-col items-center rounded-lg bg-emerald-50 px-2 py-1">
+              <ChevronUp className="h-3 w-3 text-emerald-700" />
+              <span className="text-[11px] font-semibold text-emerald-700">
                 432
               </span>
             </div>
@@ -109,10 +109,10 @@ export default function FloatingCards() {
         className="absolute right-[4%] top-[51%] z-20 hidden lg:block pointer-events-auto"
       >
         <div className="animate-float-slow">
-          <div className="glass-card rounded-2xl px-3.5 py-3 ring-1 ring-black/[0.04] w-[210px]">
+          <div className="glass-card rounded-2xl px-3.5 py-3 ring-1 ring-emerald-900/[0.05] w-[210px]">
             <div className="flex items-center gap-1.5 mb-2">
-              <Flame className="h-3.5 w-3.5 text-orange-500" />
-              <span className="text-xs font-semibold text-[#0b1220]">
+              <Flame className="h-3.5 w-3.5 text-emerald-600" />
+              <span className="text-xs font-semibold text-[#062018]">
                 Trending Now
               </span>
             </div>
@@ -126,7 +126,7 @@ export default function FloatingCards() {
                   key={item.rank}
                   className="flex items-center justify-between text-xs"
                 >
-                  <span className="text-[#0b1220]">
+                  <span className="text-[#062018]">
                     <span className="text-[#9ca3af] mr-1.5">{item.rank}.</span>
                     {item.name}
                   </span>
@@ -146,7 +146,7 @@ export default function FloatingCards() {
         rotate={-7}
         floatClass="animate-float-fast"
         className="left-[15%] bottom-[22%] hidden md:block"
-        icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-500" />}
+        icon={<TrendingUp className="h-3.5 w-3.5 text-emerald-600" />}
         label="Community Upvoted"
       />
 
@@ -155,7 +155,7 @@ export default function FloatingCards() {
         rotate={6}
         floatClass="animate-float-medium"
         className="right-[15%] bottom-[20%] hidden md:block"
-        icon={<Users className="h-3.5 w-3.5 text-sky-500" />}
+        icon={<Users className="h-3.5 w-3.5 text-emerald-600" />}
         label="Build in Public"
       />
     </div>

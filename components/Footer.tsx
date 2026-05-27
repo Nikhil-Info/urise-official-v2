@@ -26,7 +26,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-[#dde7f0] bg-[#eaf3fb] py-16">
+    <footer className="border-t border-emerald-100 bg-[#f0f8f3] py-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-10 lg:grid-cols-[1.5fr_2fr]">
           <div>
@@ -38,11 +38,11 @@ export default function Footer() {
                 height={32}
                 className="h-8 w-8 object-contain"
               />
-              <span className="text-lg font-semibold tracking-tight text-[#0b1220]">
+              <span className="text-lg font-semibold tracking-tight text-[#062018]">
                 URise
               </span>
             </a>
-            <p className="mt-4 max-w-sm text-sm text-[#4b5563]">
+            <p className="mt-4 max-w-sm text-sm text-[#4b6b5c]">
               The stage for what&apos;s next. Discover, launch, and grow with a
               community of early adopters.
             </p>
@@ -51,7 +51,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="grid h-9 w-9 place-items-center rounded-xl bg-white ring-1 ring-black/[0.05] text-[#4b5563] shadow-sm transition hover:text-[#0a1027]"
+                  className="grid h-9 w-9 place-items-center rounded-xl bg-white ring-1 ring-emerald-900/[0.06] text-[#4b6b5c] shadow-sm transition hover:text-emerald-700"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -62,7 +62,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {Object.entries(links).map(([title, items]) => (
               <div key={title}>
-                <div className="mb-3 text-xs font-bold uppercase tracking-wider text-[#0b1220]">
+                <div className="mb-3 text-xs font-bold uppercase tracking-wider text-[#062018]">
                   {title}
                 </div>
                 <ul className="space-y-2 text-sm">
@@ -70,7 +70,7 @@ export default function Footer() {
                     <li key={item}>
                       <a
                         href="#"
-                        className="text-[#4b5563] transition hover:text-[#0a1027]"
+                        className="text-[#4b6b5c] transition hover:text-emerald-700"
                       >
                         {item}
                       </a>
@@ -82,7 +82,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-[#dde7f0] pt-6 text-xs text-[#6b7280] sm:flex-row sm:items-center">
+        <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-emerald-100 pt-6 text-xs text-[#4b6b5c] sm:flex-row sm:items-center">
           <span>© {new Date().getFullYear()} URise. Built for makers.</span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />

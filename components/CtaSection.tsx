@@ -14,17 +14,17 @@ export default function CtaSection() {
   const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
 
   return (
-    <section ref={ref} className="relative isolate overflow-hidden bg-[#eaf3fb] py-28">
+    <section ref={ref} className="relative isolate overflow-hidden bg-[#f5fbf8] py-28">
       <motion.div
         style={{ scale: cardScale }}
         className="relative mx-auto max-w-5xl px-6"
       >
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0a1027] via-[#13193a] to-[#0a1027] px-8 py-16 text-center shadow-[0_30px_60px_-20px_rgba(15,30,60,0.5)] sm:px-16 sm:py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-700 via-emerald-800 to-emerald-900 px-8 py-16 text-center shadow-[0_30px_60px_-20px_rgba(4,80,55,0.45)] sm:px-16 sm:py-20">
           <motion.div
             style={{ y: blobY }}
-            className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-sky-400/25 blur-3xl"
+            className="pointer-events-none absolute -top-20 -left-20 h-72 w-72 rounded-full bg-emerald-300/30 blur-3xl"
           />
-          <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-indigo-400/25 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-teal-300/25 blur-3xl" />
 
           <div
             aria-hidden
@@ -60,7 +60,7 @@ export default function CtaSection() {
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href="#waitlist"
-                className="group inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-medium text-[#0a1027] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] transition hover:bg-[#f3f6fb]"
+                className="group inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-medium text-emerald-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] transition hover:bg-emerald-50"
               >
                 <Rocket className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 Join waitlist

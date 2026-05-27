@@ -24,7 +24,7 @@ export default function TrustedByCurve() {
           <div
             key={name}
             style={{ transform: `translateY(${dy}px)` }}
-            className="grid h-9 w-9 place-items-center text-[#0b1220] transition-transform hover:scale-110"
+            className="grid h-9 w-9 place-items-center text-[#062018] transition-transform hover:scale-110"
           >
             <Icon
               className="h-6 w-6"
@@ -36,7 +36,7 @@ export default function TrustedByCurve() {
           </div>
         ))}
       </div>
-      <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0b1220]/70">
+      <p className="mt-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#062018]/70">
         Trusted by founders from
       </p>
     </motion.div>

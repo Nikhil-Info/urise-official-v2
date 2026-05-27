@@ -1,92 +1,103 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import {
+  ArrowRight,
+  Bookmark,
   Calendar,
-  CalendarCheck,
   ChevronUp,
-  Coffee,
-  FileText,
   Filter,
-  Gamepad2,
-  type LucideIcon,
+  History,
   MessageCircle,
+  MessageSquare,
+  Plus,
+  Rocket,
   Search,
-  ShoppingBag,
-  Sparkles,
   TrendingUp,
+  Zap,
 } from "lucide-react";
 import { useRef } from "react";
 
-type Product = {
+type ArchiveItem = {
   name: string;
   tagline: string;
-  category: string;
+  tags: string[];
   votes: number;
   comments: number;
-  icon: LucideIcon;
-  accent: string;
-  badge?: string;
+  gradient: string;
+  initial: string;
 };
 
-const products: Product[] = [
+const archive: ArchiveItem[] = [
   {
-    name: "FlowZen",
-    tagline: "Smart calendar for focused work.",
-    category: "Productivity",
-    votes: 432,
-    comments: 28,
-    icon: CalendarCheck,
-    accent: "bg-emerald-400",
+    name: "SRTGen.com: AI Subtitle Generator & Auto Captions",
+    tagline:
+      "Generate AI Subtitles & Auto Captions in 100+ Languages — No signup needed.",
+    tags: ["AI Tools", "Productivity"],
+    votes: 1,
+    comments: 0,
+    gradient: "from-emerald-400 via-teal-400 to-emerald-600",
+    initial: "S",
   },
   {
-    name: "Taskly",
-    tagline: "AI assistant that runs your to-do list.",
-    category: "AI",
-    votes: 612,
-    comments: 41,
-    icon: Sparkles,
-    accent: "bg-violet-400",
-    badge: "Featured",
-  },
-  {
-    name: "Shoply",
-    tagline: "One-tap stores for indie creators.",
-    category: "E-commerce",
-    votes: 521,
-    comments: 19,
-    icon: ShoppingBag,
-    accent: "bg-amber-400",
-  },
-  {
-    name: "Playflow",
-    tagline: "Game-like onboarding for SaaS.",
-    category: "DevTools",
-    votes: 487,
-    comments: 33,
-    icon: Gamepad2,
-    accent: "bg-teal-400",
-  },
-  {
-    name: "Lumen AI",
-    tagline: "Turn raw notes into polished docs.",
-    category: "AI",
-    votes: 398,
-    comments: 22,
-    icon: FileText,
-    accent: "bg-sky-400",
-  },
-  {
-    name: "Brewly",
-    tagline: "Subscription engine for tiny brands.",
-    category: "SaaS",
-    votes: 354,
-    comments: 17,
-    icon: Coffee,
-    accent: "bg-rose-400",
-    badge: "New",
+    name: "Layerize — AI Image to PSD Layers",
+    tagline:
+      "Split any image into depth-based layers and export as PSD. AI-powered, instant results.",
+    tags: ["Design Tools", "Social Media"],
+    votes: 1,
+    comments: 0,
+    gradient: "from-emerald-600 to-teal-700",
+    initial: "L",
   },
 ];
+
+// Cool scroll-driven reveal — each column tilts in from its side as the
+// section enters view. We stagger children with a parent variants chain.
+const columnLeft: Variants = {
+  hidden: { opacity: 0, x: -40, rotateY: 8 },
+  show: {
+    opacity: 1,
+    x: 0,
+    rotateY: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.08 },
+  },
+};
+const columnCenter: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.07,
+      delayChildren: 0.1,
+    },
+  },
+};
+const columnRight: Variants = {
+  hidden: { opacity: 0, x: 40, rotateY: -8 },
+  show: {
+    opacity: 1,
+    x: 0,
+    rotateY: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.08,
+      delayChildren: 0.15,
+    },
+  },
+};
+const item: Variants = {
+  hidden: { opacity: 0, y: 24, rotateX: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function RecentLaunches() {
   const ref = useRef<HTMLElement>(null);
@@ -94,257 +105,360 @@ export default function RecentLaunches() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const blobY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+  // Subtle floating background — not full parallax, just a gentle drift
+  const blobY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const blob2Y = useTransform(scrollYProgress, [0, 1], [30, -30]);
 
   return (
     <section
       id="launches"
       ref={ref}
-      className="section-lift relative isolate overflow-hidden bg-white py-24"
+      className="relative isolate overflow-hidden bg-[#f5fbf8] py-20 sm:py-24"
+      style={{ perspective: 1400 }}
     >
+      {/* Soft drifting blobs */}
       <motion.div
         style={{ y: blobY }}
-        className="pointer-events-none absolute top-24 -left-32 h-80 w-80 rounded-full bg-sky-200/40 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-emerald-200/40 blur-3xl"
+      />
+      <motion.div
+        style={{ y: blob2Y }}
+        className="pointer-events-none absolute bottom-0 -right-24 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"
       />
 
-      <div className="relative mx-auto max-w-6xl px-6">
-        <div className="grid gap-10 lg:grid-cols-[1fr_300px]">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
-              className="mb-6 flex items-center justify-between"
-            >
-              <div className="flex items-center gap-2">
-                
-                <h2 className="text-2xl font-semibold tracking-tight text-[#0a1027] sm:text-3xl">
+      <div
+        className="relative mx-auto max-w-7xl px-4 sm:px-6"
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr_300px]">
+          {/* ===== LEFT COLUMN ===== */}
+          <motion.aside
+            variants={columnLeft}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-4"
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            <VisitorsCard />
+            <LiveActivitiesCard />
+            <SponsorCard />
+          </motion.aside>
+
+          {/* ===== MIDDLE COLUMN ===== */}
+          <motion.div
+            variants={columnCenter}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-10"
+          >
+            {/* Header */}
+            <motion.div variants={item} className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <Rocket className="h-6 w-6 text-emerald-600" strokeWidth={2.2} />
+                <h2 className="text-2xl font-bold tracking-tight text-[#062018] sm:text-3xl">
                   Recent Launches
                 </h2>
               </div>
-              <button className="grid h-9 w-9 place-items-center rounded-xl bg-[#f3f6fb] ring-1 ring-black/[0.04] text-[#4b5563] shadow-sm transition hover:text-[#0a1027]">
+              <button className="grid h-10 w-10 place-items-center rounded-xl bg-white ring-1 ring-black/[0.05] text-[#4b5563] shadow-sm transition hover:text-[#062018] hover:shadow-md">
                 <Filter className="h-4 w-4" />
               </button>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5 }}
-              className="mb-5 inline-flex items-center gap-2 rounded-full bg-[#f3f6fb] px-3 py-1.5 text-xs font-semibold text-[#0a1027] ring-1 ring-black/[0.04] shadow-sm"
-            >
-              <Calendar className="h-3.5 w-3.5 text-sky-600" />
-              Today
+            {/* Today (empty) */}
+            <motion.div variants={item} className="space-y-3">
+              <p className="text-sm text-[#6b7280]">
+                no products have been launched yet
+              </p>
             </motion.div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {products.slice(0, 4).map((p, i) => (
-                <ProductCard key={p.name} product={p} index={i} />
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5 }}
-              className="mt-10 mb-5 inline-flex items-center gap-2 rounded-full bg-[#f3f6fb] px-3 py-1.5 text-xs font-semibold text-[#0a1027] ring-1 ring-black/[0.04] shadow-sm"
-            >
-              <Calendar className="h-3.5 w-3.5 text-sky-600" />
-              Yesterday
+            {/* Yesterday */}
+            <motion.div variants={item} className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-[#062018]" strokeWidth={2} />
+                <h3 className="text-xl font-bold text-[#062018]">Yesterday</h3>
+              </div>
+              <p className="text-sm text-[#6b7280]">
+                no products have been launched yet
+              </p>
             </motion.div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {products.slice(4).map((p, i) => (
-                <ProductCard key={p.name} product={p} index={i + 4} />
-              ))}
-            </div>
-          </div>
+            {/* This Week */}
+            <motion.div variants={item} className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-[#062018]" strokeWidth={2} />
+                <h3 className="text-xl font-bold text-[#062018]">This Week</h3>
+              </div>
+              <p className="text-sm text-[#6b7280]">
+                earlier launches from this week show up here
+              </p>
+            </motion.div>
 
-          <aside className="space-y-4">
-            <SidebarSearch />
-            <VisitorsCard />
-            <RisingNowCard />
-          </aside>
+            {/* Archive */}
+            <motion.div variants={item} className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <History className="h-5 w-5 text-[#062018]" strokeWidth={2} />
+                  <h3 className="text-xl font-bold text-[#062018]">Archive</h3>
+                </div>
+                <a
+                  href="#"
+                  className="group inline-flex items-center gap-1 text-sm font-medium text-[#062018] transition hover:text-emerald-600"
+                >
+                  Browse all
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </a>
+              </div>
+              <div className="space-y-3">
+                {archive.map((a) => (
+                  <ArchiveCard key={a.name} item={a} />
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* ===== RIGHT COLUMN ===== */}
+          <motion.aside
+            variants={columnRight}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            className="space-y-4"
+            style={{ transformStyle: "preserve-3d" }}
+          >
+            <SearchCard />
+            <ReadyToRiseCard />
+            <NextBattleCard />
+            <ActiveDiscussionsCard />
+          </motion.aside>
         </div>
       </div>
     </section>
   );
 }
 
-function ProductCard({
-  product,
-  index,
-}: {
-  product: Product;
-  index: number;
-}) {
-  const Icon = product.icon;
+/* ============================== CARDS ============================== */
+
+function ArchiveCard({ item: a }: { item: ArchiveItem }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="group relative flex items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-[0_10px_30px_-20px_rgba(15,30,60,0.2)] transition hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(15,30,60,0.25)]"
+      variants={item}
+      whileHover={{ y: -3 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
+      className="group flex items-start gap-4 rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-[0_8px_24px_-18px_rgba(15,30,60,0.25)] transition hover:shadow-[0_18px_36px_-20px_rgba(15,30,60,0.3)]"
     >
-      <div className="relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-linear-to-br from-[#0a1027] to-[#1e2645] text-white shadow-[0_8px_20px_-8px_rgba(15,30,60,0.35)] ring-1 ring-white/10">
-        {/* soft inner glow */}
-        <span
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_30%_22%,rgba(125,180,230,0.35),transparent_60%)]"
-        />
-        {/* subtle grid texture — keeps the avatars feeling on-brand */}
-        <span
-          aria-hidden
-          className="absolute inset-0 opacity-25"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
-            backgroundSize: "8px 8px",
-          }}
-        />
-        <Icon className="relative h-6 w-6" strokeWidth={1.75} />
-        {/* category accent dot */}
-        <span
-          className={`absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full ${product.accent} ring-2 ring-[#0a1027]`}
-        />
+      <div
+        className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${a.gradient} text-2xl font-bold text-white shadow-[0_8px_20px_-8px_rgba(15,30,60,0.3)]`}
+      >
+        {a.initial}
       </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <h3 className="truncate text-base font-semibold text-[#0a1027]">
-            {product.name}
-          </h3>
-          {product.badge && (
-            <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[10px] font-semibold text-sky-700">
-              {product.badge}
-            </span>
-          )}
-        </div>
-        <p className="truncate text-xs text-[#4b5563]">{product.tagline}</p>
-        <div className="mt-1.5 flex items-center gap-3 text-[10px] text-[#6b7280]">
-          <span className="rounded-md bg-sky-50 px-1.5 py-0.5 font-semibold text-sky-700">
-            {product.category}
-          </span>
-          <span className="flex items-center gap-1">
-            <MessageCircle className="h-3 w-3" />
-            {product.comments}
-          </span>
-        </div>
-      </div>
-      <button className="flex shrink-0 flex-col items-center rounded-xl bg-[#f3f6fb] px-3 py-2 ring-1 ring-black/[0.04] transition group-hover:bg-sky-50">
-        <ChevronUp className="h-4 w-4 text-[#0a1027] transition group-hover:-translate-y-0.5" />
-        <span className="text-xs font-bold text-[#0a1027]">{product.votes}</span>
-      </button>
-    </motion.article>
-  );
-}
 
-function SidebarSearch() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5 }}
-      className="flex items-center gap-2 rounded-2xl bg-white px-3 py-2.5 ring-1 ring-black/[0.05] shadow-sm"
-    >
-      <Search className="h-4 w-4 text-[#9ca3af]" />
-      <input
-        placeholder="Search URise..."
-        className="flex-1 bg-transparent text-sm text-[#0b1220] placeholder:text-[#9ca3af] focus:outline-none"
-      />
-    </motion.div>
+      <div className="min-w-0 flex-1">
+        <h4 className="truncate text-sm font-semibold text-[#062018] sm:text-base">
+          {a.name}
+        </h4>
+        <p className="mt-0.5 line-clamp-2 text-xs text-[#6b7280] sm:text-sm">
+          {a.tagline}
+        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-1.5">
+          {a.tags.map((t) => (
+            <span
+              key={t}
+              className="rounded-full bg-[#e6f1ea] px-2 py-0.5 text-[10px] font-semibold text-[#4b5563]"
+            >
+              #{t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex shrink-0 flex-col items-end gap-2">
+        <button className="flex flex-col items-center rounded-xl bg-[#edf6f0] px-2.5 py-1.5 ring-1 ring-black/[0.04] transition group-hover:bg-emerald-50">
+          <ChevronUp className="h-4 w-4 text-[#062018]" />
+          <span className="text-xs font-bold text-[#062018]">{a.votes}</span>
+        </button>
+        <div className="flex items-center gap-2 text-[11px] text-[#6b7280]">
+          <span className="flex items-center gap-0.5">
+            <MessageCircle className="h-3.5 w-3.5" />
+            {a.comments}
+          </span>
+          <Bookmark className="h-3.5 w-3.5 cursor-pointer transition hover:text-[#062018]" />
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
 function VisitorsCard() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: 0.05 }}
+      variants={item}
       className="rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-sm"
     >
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#6b7280]">
           <TrendingUp className="h-3 w-3 text-emerald-500" />
           Visitors
         </div>
         <span className="rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700">
-          DR 1
+          DR 9
         </span>
       </div>
-      <div className="flex items-end justify-between gap-2">
-        <div>
-          <div className="text-2xl font-bold text-[#0a1027]">1,248</div>
-          <div className="text-[10px] text-[#6b7280]">last 24h • +18%</div>
-        </div>
-        <svg viewBox="0 0 100 32" className="h-10 w-24" fill="none" aria-hidden>
-          <defs>
-            <linearGradient id="spark2" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.35" />
-              <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0 22 L12 18 L24 24 L36 14 L48 18 L60 8 L72 14 L84 6 L100 10 L100 32 L0 32 Z"
-            fill="url(#spark2)"
-          />
-          <path
-            d="M0 22 L12 18 L24 24 L36 14 L48 18 L60 8 L72 14 L84 6 L100 10"
-            stroke="#0ea5e9"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+
+      <div className="mt-1.5 text-2xl font-bold text-[#062018]">1</div>
+
+      <svg
+        viewBox="0 0 240 80"
+        className="mt-2 h-20 w-full"
+        fill="none"
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="visit-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0 70 L40 70 L80 70 L120 70 L150 70 L170 20 L185 70 L210 70 L240 70 L240 80 L0 80 Z"
+          fill="url(#visit-fill)"
+        />
+        <path
+          d="M0 70 L40 70 L80 70 L120 70 L150 70 L170 20 L185 70 L210 70 L240 70"
+          stroke="#10b981"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+
+      <div className="mt-2 flex items-center justify-between border-t border-black/[0.04] pt-2 text-[9px] text-[#9ca3af]">
+        <span>
+          Powered by{" "}
+          <span className="font-semibold text-[#6b7280]">Cloudflare</span>
+        </span>
+        <span>
+          Powered by{" "}
+          <span className="font-semibold text-[#6b7280]">Ahrefs</span>
+        </span>
       </div>
     </motion.div>
   );
 }
 
-function RisingNowCard() {
-  const items = [
-    { name: "Lumen AI", change: "+128%" },
-    { name: "Brewly", change: "+92%" },
-    { name: "Shoply", change: "+74%" },
-  ];
+function LiveActivitiesCard() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: 0.1 }}
+      variants={item}
       className="rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-sm"
     >
-      <div className="mb-3 flex items-center gap-1.5 text-xs font-bold text-[#0a1027]">
-        <span className="grid h-5 w-5 place-items-center rounded-md bg-gradient-to-br from-sky-400 to-sky-600 text-white">
-          <TrendingUp className="h-3 w-3" />
-        </span>
-        Rising Now
+      <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-600">
+        <Zap className="h-3 w-3 fill-emerald-500 text-emerald-500" />
+        Live Activities
       </div>
-      <ul className="space-y-2">
-        {items.map((item, i) => (
-          <li
-            key={item.name}
-            className="flex items-center justify-between text-xs"
-          >
-            <span className="flex items-center gap-2 text-[#0b1220]">
-              <span className="text-[10px] font-bold text-[#9ca3af]">
-                {i + 1}.
-              </span>
-              {item.name}
-            </span>
-            <span className="text-[10px] font-bold text-emerald-600">
-              {item.change}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-12 mb-4 text-center text-[11px] font-medium uppercase tracking-wider text-[#9ca3af]">
+        Awaiting first activity...
+      </div>
+    </motion.div>
+  );
+}
+
+function SponsorCard() {
+  return (
+    <motion.div
+      variants={item}
+      className="rounded-2xl bg-white p-5 ring-1 ring-black/[0.05] shadow-sm"
+    >
+      <span className="inline-block rounded-full bg-[#edf6f0] px-2.5 py-0.5 text-[10px] font-semibold text-[#4b5563] ring-1 ring-black/[0.04]">
+        SPONSOR
+      </span>
+
+      <div className="mt-6 flex flex-col items-center text-center">
+        <div className="grid h-14 w-14 place-items-center rounded-2xl bg-emerald-50 ring-1 ring-emerald-100">
+          <Plus className="h-6 w-6 text-emerald-600" strokeWidth={2.5} />
+        </div>
+        <h4 className="mt-3 text-sm font-bold text-[#062018]">YOUR BRAND HERE</h4>
+        <p className="mt-1 text-xs text-[#6b7280]">
+          Reach our growing community of early adopters.
+        </p>
+      </div>
+
+      <button className="mt-5 w-full rounded-xl bg-[#edf6f0] py-2.5 text-xs font-semibold text-[#062018] ring-1 ring-black/[0.04] transition hover:bg-[#e9eef5]">
+        Secure Slot
+      </button>
+    </motion.div>
+  );
+}
+
+function SearchCard() {
+  return (
+    <motion.div
+      variants={item}
+      className="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 ring-1 ring-black/[0.05] shadow-sm"
+    >
+      <Search className="h-4 w-4 text-[#9ca3af]" />
+      <input
+        placeholder="Search URise..."
+        className="flex-1 bg-transparent text-sm text-[#062018] placeholder:text-[#9ca3af] focus:outline-none"
+      />
+    </motion.div>
+  );
+}
+
+function ReadyToRiseCard() {
+  return (
+    <motion.div
+      variants={item}
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-100 via-white to-emerald-50 p-5 ring-1 ring-emerald-200/60 shadow-sm"
+    >
+      <div className="flex items-center gap-2">
+        <Rocket className="h-5 w-5 text-emerald-600" strokeWidth={2.2} />
+        <h4 className="text-lg font-bold text-[#062018]">Ready to Rise?</h4>
+      </div>
+      <p className="mt-1 text-sm text-[#4b5563]">Launch your project today.</p>
+      <button className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(5,150,105,0.6)] transition hover:bg-emerald-700">
+        <Plus className="h-4 w-4" strokeWidth={2.5} />
+        Start Launching
+      </button>
+    </motion.div>
+  );
+}
+
+function NextBattleCard() {
+  return (
+    <motion.div
+      variants={item}
+      className="rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-sm"
+    >
+      <span className="inline-block rounded-full bg-[#edf6f0] px-2.5 py-0.5 text-[10px] font-semibold text-[#4b5563] ring-1 ring-black/[0.04]">
+        NEXT BATTLE
+      </span>
+      <p className="mt-6 text-xs italic text-[#6b7280]">
+        Stay tuned! The next weekly showdown starts on Monday.
+      </p>
+    </motion.div>
+  );
+}
+
+function ActiveDiscussionsCard() {
+  return (
+    <motion.div
+      variants={item}
+      className="rounded-2xl bg-white p-4 ring-1 ring-black/[0.05] shadow-sm"
+    >
+      <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#6b7280]">
+        <MessageSquare className="h-3 w-3" />
+        Active Discussions
+      </div>
+      <p className="mt-3 text-xs text-[#6b7280]">No active discussions.</p>
+      <a
+        href="#"
+        className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 transition hover:text-emerald-700"
+      >
+        Visit Community Forum
+        <ArrowRight className="h-3.5 w-3.5" />
+      </a>
     </motion.div>
   );
 }

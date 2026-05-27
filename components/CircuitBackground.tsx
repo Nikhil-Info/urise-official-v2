@@ -219,14 +219,14 @@ export default function CircuitBackground() {
       >
         {/* Base — dim circuit */}
         <CircuitSvg
-          lineStroke="#9CC4E4"
+          lineStroke="#9fd8bc"
           lineWidth={1.2}
-          nodeFill="#BFD7EC"
-          chipFill="#cfe2f3"
-          chipStroke="#9CC4E4"
-          dotColor="#7FB2DA"
+          nodeFill="#bfe7d2"
+          chipFill="#d1f0de"
+          chipStroke="#9fd8bc"
+          dotColor="#86d3ad"
           dotOpacity={0.55}
-          style={{ opacity: 0.7 }}
+          style={{ opacity: 0.75 }}
         />
 
         {/* Bright overlay — masked to follow cursor */}
@@ -240,24 +240,24 @@ export default function CircuitBackground() {
           }}
         >
           <CircuitSvg
-            lineStroke="#3b82f6"
+            lineStroke="#059669"
             lineWidth={1.6}
-            nodeFill="#60a5fa"
-            chipFill="#dbeafe"
-            chipStroke="#3b82f6"
-            dotColor="#60a5fa"
+            nodeFill="#10b981"
+            chipFill="#d1fae5"
+            chipStroke="#059669"
+            dotColor="#10b981"
             dotOpacity={1}
           />
         </motion.div>
       </motion.div>
 
-      <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.55),transparent_70%)] blur-2xl" />
+      <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.6),transparent_70%)] blur-2xl" />
 
       {/* Top fade — wipes circuit lines behind the navbar */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,#e8f3fb_0%,rgba(232,243,251,0.9)_55%,rgba(232,243,251,0)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(to_bottom,#f0fbf5_0%,rgba(240,251,245,0.9)_55%,rgba(240,251,245,0)_100%)]" />
 
       {/* Bottom fade — wipes circuit lines under the trusted-by band */}
-      <div className="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(to_top,#e8f3fb_0%,rgba(232,243,251,0.92)_55%,rgba(232,243,251,0)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-44 bg-[linear-gradient(to_top,#f0fbf5_0%,rgba(240,251,245,0.92)_55%,rgba(240,251,245,0)_100%)]" />
     </div>
   );
 }

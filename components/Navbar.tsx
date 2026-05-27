@@ -26,8 +26,8 @@ export default function Navbar() {
     scrollY,
     [0, 220],
     [
-      "0 4px 20px -8px rgba(15,30,60,0.08)",
-      "0 14px 40px -14px rgba(15,30,60,0.22)",
+      "0 4px 20px -8px rgba(4,60,40,0.08)",
+      "0 14px 40px -14px rgba(4,60,40,0.22)",
     ]
   );
   const topOffset = useTransform(scrollY, [0, 220], [22, 14]);
@@ -47,7 +47,7 @@ export default function Navbar() {
           background: navBg,
           boxShadow: shadow,
         }}
-        className="relative mx-auto flex items-center justify-between rounded-full backdrop-blur-xl ring-1 ring-black/5"
+        className="relative mx-auto flex items-center justify-between rounded-full backdrop-blur-xl ring-1 ring-emerald-900/5"
       >
         {/* subtle gradient hairline border */}
         <span
@@ -55,7 +55,7 @@ export default function Navbar() {
           className="pointer-events-none absolute inset-0 rounded-full"
           style={{
             background:
-              "linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(125,180,230,0.18))",
+              "linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(16,185,129,0.22))",
             WebkitMask:
               "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
             WebkitMaskComposite: "xor",
@@ -67,7 +67,7 @@ export default function Navbar() {
         {/* Brand */}
         <a href="#" className="relative flex items-center gap-2.5 pl-1">
           <span className="relative grid h-8 w-8 place-items-center">
-            <span className="absolute inset-0 rounded-lg bg-linear-to-br from-[#7db4e6]/30 to-transparent blur-md" />
+            <span className="absolute inset-0 rounded-lg bg-linear-to-br from-emerald-400/35 to-transparent blur-md" />
             <Image
               src="/logo.png"
               alt="URise logo"
@@ -77,13 +77,13 @@ export default function Navbar() {
               className="relative h-8 w-8 object-contain"
             />
           </span>
-          <span className="text-[15px] font-semibold tracking-tight text-[#0b1220]">
+          <span className="text-[15px] font-semibold tracking-tight text-[#062018]">
             URise
           </span>
         </a>
 
         {/* Links with sliding active indicator */}
-        <ul className="relative hidden items-center gap-1 text-sm font-medium text-[#4b5563] md:flex">
+        <ul className="relative hidden items-center gap-1 text-sm font-medium text-[#4b6b5c] md:flex">
           {links.map((link) => {
             const isActive = active === link.label;
             return (
@@ -92,7 +92,7 @@ export default function Navbar() {
                   href={link.href}
                   onMouseEnter={() => setActive(link.label)}
                   className={`relative z-10 inline-block rounded-full px-3.5 py-1.5 transition-colors ${
-                    isActive ? "text-[#0b1220]" : "hover:text-[#0b1220]"
+                    isActive ? "text-[#062018]" : "hover:text-[#062018]"
                   }`}
                 >
                   {isActive && (
@@ -103,7 +103,7 @@ export default function Navbar() {
                         stiffness: 380,
                         damping: 30,
                       }}
-                      className="absolute inset-0 -z-10 rounded-full bg-[#0b1220]/6"
+                      className="absolute inset-0 -z-10 rounded-full bg-emerald-900/[0.07]"
                     />
                   )}
                   {link.label}
@@ -116,7 +116,7 @@ export default function Navbar() {
         {/* CTA */}
         <a
           href="#launches"
-          className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full bg-[#0a1027] px-4 py-2 text-sm font-medium text-white shadow-[0_6px_20px_-8px_rgba(10,16,39,0.6)] transition hover:bg-[#13193a]"
+          className="group relative inline-flex items-center gap-1.5 overflow-hidden rounded-full bg-emerald-600 px-4 py-2 text-sm font-medium text-white shadow-[0_6px_20px_-8px_rgba(5,150,105,0.6)] transition hover:bg-emerald-700"
         >
           <span
             aria-hidden

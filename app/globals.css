@@ -55,10 +55,14 @@ body {
 
 .circuit-bg {
   background-image:
+    /* emerald wash hugging just the top strip behind the navbar */
+    radial-gradient(ellipse 95% 18% at 50% -3%, rgba(110, 231, 183, 0.5) 0%, transparent 80%),
+    /* original middle/bottom radials, unchanged */
     radial-gradient(circle at 20% 20%, rgba(167, 243, 208, 0.55) 0%, transparent 45%),
     radial-gradient(circle at 80% 10%, rgba(187, 247, 220, 0.55) 0%, transparent 55%),
     radial-gradient(circle at 50% 90%, rgba(209, 250, 229, 0.6) 0%, transparent 55%),
-    linear-gradient(180deg, #f0fbf5 0%, #e7f8ee 60%, #f0fbf5 100%);
+    /* slight emerald at the very top of the linear gradient, normal from 30% down */
+    linear-gradient(180deg, #d9f5e4 0%, #ebf9f1 18%, #f0fbf5 35%, #e7f8ee 65%, #f0fbf5 100%);
 }
 
 .glass-card {
